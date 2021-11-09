@@ -6,9 +6,12 @@ const bodyParser = require('body-parser');
 const port = process.env.PORT || 2021;
 const mongo = require('mongodb');
 const MongoClient = mongo.MongoClient;
+const cors = require('cors');
 //to receive data from form 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
+app.use(cors());
+
 //const mongourl = "mongodb://localhost:27017"
 const mongourl = "mongodb+srv://vignesh:1234567890@cluster0.km8kx.mongodb.net/zomato?retryWrites=true&w=majority"
 var db;
