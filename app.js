@@ -25,13 +25,24 @@ app.get('/',(req,res) => {
 
 
 
+//List all restaurants
+app.get('/restaurants',(req,res) =>{
+    db.collection('restaurants').find().toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result)
+    })
+})
+
+
+
 //quary exapmles
 app.get('/restaurant',(req,res) =>{
     var query = {}
-    if(req.query.cityId){
-        query={city:req.query.cityId}
-    }else if(req.query.mealtype){
-        query={"type.mealtype":req.query.mealtype}
+    if(req.query.stateid){
+        query={state_id:Number(req.query.stateid)}
+        console.log(query)
+    }else if(req.query.mealtype_id){
+        query={"mealTypes.mealtype_id":req.query.mealtype}
     }
     db.collection('restaurants').find(query).toArray((err,result)=>{
         if(err) throw err;
