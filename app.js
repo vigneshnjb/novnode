@@ -108,6 +108,16 @@ app.get('/details/:id',(req,res) =>{
 })
 
 
+// menu Details
+app.get('/menu/:id',(req,res) =>{
+    var id = req.params.id;
+    db.collection('restaurants').find({restaurant_id:Number(id)}).toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result)
+    })
+})
+
+
 //list all quicksearch
 app.get('/quicksearch',(req,res) =>{
     db.collection('mealtype').find().toArray((err,result)=>{
