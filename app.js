@@ -117,6 +117,16 @@ app.get('/menu/:id',(req,res) =>{
     })
 })
 
+app.post('/menuitem',(req,res) => {
+    db.collection('menu').find({menu_id:{$in:req.body.ids}}).toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result)
+    })
+    
+})
+
+
+
 
 //list all quicksearch
 app.get('/quicksearch',(req,res) =>{
