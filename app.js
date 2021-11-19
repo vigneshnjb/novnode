@@ -136,7 +136,7 @@ app.get('/quicksearch',(req,res) =>{
 })
 
 
-//placeOrder
+// place order 
 app.post('/placeOrder',(req,res) => {
     console.log(req.body);
     db.collection('orders').insert(req.body,(err,result) => {
@@ -146,8 +146,20 @@ app.post('/placeOrder',(req,res) => {
 })
 
 app.get('/viewOrder',(req,res) => {
-    db.collection('orders').find().toArray,((err,result) => {
-        if (err) throw err;
+    var query = {}
+    if(req.query.email){
+        query = {email:req.query.email}
+    }
+    db.collection('orders').find(query).toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result)
+    })
+})
+
+app.get('/viewOrder/:id',(req,res) => {
+    var id = mongo.ObjectId(req.params.id);
+    db.collection('orders').find({_id:id}).toArray((err,result)=>{
+        if(err) throw err;
         res.send(result)
     })
 })
